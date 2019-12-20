@@ -1,5 +1,5 @@
 name: ${self:provider.stage}-mtglm-scryfall-get-random-card
-handler: build/handlers/getRandomCarad.handler
+handler: build/handlers/getRandomCard.handler
 tags:
   get: randomCard
 events:

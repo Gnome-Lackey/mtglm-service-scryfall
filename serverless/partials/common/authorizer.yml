@@ -1,2 +1,2 @@
-authorizerId: { Ref: SeasonsApiGatewayAuthorizer }
+authorizerId: { Ref: ScryfallApiGatewayAuthorizer }
 type: COGNITO_USER_POOLS

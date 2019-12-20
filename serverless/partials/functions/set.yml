@@ -1,0 +1,21 @@
+name: ${self:provider.stage}-mtglm-scryfall-get-set
+handler: build/handlers/getSet.handler
+tags:
+  get: set
+events:
+  - http:
+      method: get
+      path: sets/{code}
+      authorizer: ${file(partials/common/authorizer.yml)}
+      cors: ${file(partials/common/cors.yml)}
+      documentation:
+        summary: "GET Scryfall set"
+        description: "GET Scryfall set by gatherer code."
+        requestHeaders:
+          - name: "Authorization"
+            description: "Authorization token is needed to access the endpoint."
+        methodResponses:
+          - statusCode: "200"
+            requestModels:
+              "application/json": setResponse
+          - statusCode: "500"

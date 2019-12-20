@@ -1,0 +1,21 @@
+name: ${self:provider.stage}-mtglm-scryfall-get-card
+handler: build/handlers/getCard.handler
+tags:
+  get: card
+events:
+  - http:
+      method: get
+      path: cards/{cardId}
+      authorizer: ${file(partials/common/authorizer.yml)}
+      cors: ${file(partials/common/cors.yml)}
+      documentation:
+        summary: "GET Scryfall Card"
+        description: "GET Scryfall card by uid."
+        requestHeaders:
+          - name: "Authorization"
+            description: "Authorization token is needed to access the endpoint."
+        methodResponses:
+          - statusCode: "200"
+            requestModels:
+              "application/json": cardResponse
+          - statusCode: "500"

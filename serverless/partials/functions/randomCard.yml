@@ -1,0 +1,21 @@
+name: ${self:provider.stage}-mtglm-scryfall-get-random-card
+handler: build/handlers/getRandomCarad.handler
+tags:
+  get: randomCard
+events:
+  - http:
+      method: get
+      path: cards/random
+      authorizer: ${file(partials/common/authorizer.yml)}
+      cors: ${file(partials/common/cors.yml)}
+      documentation:
+        summary: "GET random card from Scryfall"
+        description: "GET random card from Scryfall. Filterable by query parameters."
+        requestHeaders:
+          - name: "Authorization"
+            description: "Authorization token is needed to access the endpoint."
+        methodResponses:
+          - statusCode: "200"
+            requestModels:
+              "application/json": cardResponse
+          - statusCode: "500"

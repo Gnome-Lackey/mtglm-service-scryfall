@@ -1,0 +1,31 @@
+api:
+  info:
+    version: "1"
+    title: "Scryfall API"
+    description: "API proxy for Scryfall content."
+models:
+  - name: "CardResponse"
+    description: "Get specific card response body."
+    contentType: "application/json"
+    schema: ${file(models/responses/card.json)}
+  - name: "CardsResponse"
+    description: "Get all cards response body."
+    contentType: "application/json"
+    schema: ${file(models/responses/cards.json)}
+  - name: "SetResponse"
+    description: "Get specific set response body."
+    contentType: "application/json"
+    schema: ${file(models/responses/set.json)}
+  - name: "SuccessResponse"
+    description: "Success message response body."
+    contentType: "application/json"
+    schema: ${file(models/responses/success.json)}
+resources:
+  - path: Get Card
+    description: "Retrieve card by uid."
+  - path: Get Random Card
+    description: "Retrieve random card."
+  - path: Get Cards
+    description: "Retrieve all cards."
+  - path: Get Set
+    description: "Retrieve set by gatherer code."

@@ -24,9 +24,16 @@ export const getCards = async (query: ScryfallCardQueryParameters): Promise<Scry
 export const getRandomCard = async (
   query: ScryfallCardQueryParameters
 ): Promise<ScryfallCardView> => {
+  console.log('query map', query);
+
   const queryString = scryfallMapper.toQueryString(query);
 
-  const cardResult = await requestClient.get(`${SCRYFALL_BASE_URL}/cards/random?${queryString}`);
+  const url = `${SCRYFALL_BASE_URL}/cards/random?${queryString}`;
+
+  console.log('query', queryString);
+  console.log('url', url);
+
+  const cardResult = await requestClient.get(url);
 
   return scryfallMapper.toCardView(cardResult as any);
 };

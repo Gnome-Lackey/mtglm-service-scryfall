@@ -1978,7 +1978,11 @@ msgpack-lite@0.1.26:
 
 mtglm-service-sdk@Gnome-Lackey/mtglm-service-sdk#qa:
   version "1.0.0"
+<<<<<<< HEAD
   resolved "https://codeload.github.com/Gnome-Lackey/mtglm-service-sdk/tar.gz/348608f9b6863c0b22e2b879435b8c2453310ea4"
+=======
+  resolved "https://codeload.github.com/Gnome-Lackey/mtglm-service-sdk/tar.gz/e3d676ba24a7e54173d20ce7714c2c34fba43ba6"
+>>>>>>> updating sdk version
   dependencies:
     "@types/aws-sdk" "^2.7.0"
     "@types/jwt-decode" "^2.2.1"

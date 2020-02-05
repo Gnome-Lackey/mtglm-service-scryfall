@@ -10,6 +10,8 @@ const SCRYFALL_BASE_URL = "https://api.scryfall.com";
 export const getCard = async (cardId: string): Promise<ScryfallCardView> => {
   const cardResult = await requestClient.get(`${SCRYFALL_BASE_URL}/cards/${cardId}`);
 
+  console.log(JSON.stringify(cardResult));
+
   return scryfallMapper.toCardView(cardResult as any);
 };
 
@@ -17,6 +19,8 @@ export const getCards = async (query: ScryfallCardQueryParameters): Promise<Scry
   const queryString = scryfallMapper.toQueryString(query);
 
   const cardResults = await requestClient.get(`${SCRYFALL_BASE_URL}/cards/search?${queryString}`);
+
+  console.log(JSON.stringify(cardResults));
 
   return (cardResults as any).map(scryfallMapper.toCardView);
 };
@@ -29,6 +33,8 @@ export const getRandomCard = async (
   const url = `${SCRYFALL_BASE_URL}/cards/random?${queryString}`;
 
   const cardResult = await requestClient.get(url);
+
+  console.log(JSON.stringify(cardResult));
 
   return scryfallMapper.toCardView(cardResult as any);
 };

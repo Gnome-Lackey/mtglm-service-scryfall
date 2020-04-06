@@ -1,4 +1,4 @@
-import * as requestClient from "mtglm-service-sdk/build/clients/request";
+import RequestClient from "mtglm-service-sdk/build/clients/request";
 
 import ScryfallMapper from "mtglm-service-sdk/build/mappers/scryfall";
 
@@ -10,8 +10,10 @@ export default class ScryfallService {
 
   private mapper = new ScryfallMapper();
 
+  private client = new RequestClient();
+
   async getCard(cardId: string): Promise<ScryfallCardView> {
-    const cardResult = await requestClient.get(`${this.baseUrl}/cards/${cardId}`);
+    const cardResult = await this.client.get(`${this.baseUrl}/cards/${cardId}`);
 
     console.log(JSON.stringify(cardResult));
 
@@ -21,7 +23,7 @@ export default class ScryfallService {
   async getCards(query: ScryfallCardQueryParameters): Promise<ScryfallCardView[]> {
     const queryString = this.mapper.toQueryString(query);
 
-    const cardResults = await requestClient.get(`${this.baseUrl}/cards/search?${queryString}`);
+    const cardResults = await this.client.get(`${this.baseUrl}/cards/search?${queryString}`);
 
     console.log(JSON.stringify(cardResults));
 
@@ -33,7 +35,7 @@ export default class ScryfallService {
 
     const url = `${this.baseUrl}/cards/random?${queryString}`;
 
-    const cardResult = await requestClient.get(url);
+    const cardResult = await this.client.get(url);
 
     console.log(JSON.stringify(cardResult));
 
@@ -41,7 +43,7 @@ export default class ScryfallService {
   }
 
   async getSet(setCode: string): Promise<ScryfallSetView> {
-    const setResult = await requestClient.get(`${this.baseUrl}/sets/${setCode}`);
+    const setResult = await this.client.get(`${this.baseUrl}/sets/${setCode}`);
 
     return this.mapper.toSetView(setResult as any);
   }

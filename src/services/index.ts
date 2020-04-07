@@ -1,46 +1,50 @@
-import * as requestClient from "mtglm-service-sdk/build/clients/request";
+import RequestClient from "mtglm-service-sdk/build/clients/request";
 
-import * as scryfallMapper from "mtglm-service-sdk/build/mappers/scryfall";
+import ScryfallMapper from "mtglm-service-sdk/build/mappers/scryfall";
 
 import { ScryfallCardQueryParameters } from "mtglm-service-sdk/build/models/QueryParameters";
 import { ScryfallCardView, ScryfallSetView } from "mtglm-service-sdk/build/models/Views";
 
-const SCRYFALL_BASE_URL = "https://api.scryfall.com";
+export default class ScryfallService {
+  private baseUrl = "https://api.scryfall.com";
 
-export const getCard = async (cardId: string): Promise<ScryfallCardView> => {
-  const cardResult = await requestClient.get(`${SCRYFALL_BASE_URL}/cards/${cardId}`);
+  private mapper = new ScryfallMapper();
 
-  console.log(JSON.stringify(cardResult));
+  private client = new RequestClient();
 
-  return scryfallMapper.toCardView(cardResult as any);
-};
+  async getCard(cardId: string): Promise<ScryfallCardView> {
+    const cardResult = await this.client.get(`${this.baseUrl}/cards/${cardId}`);
 
-export const getCards = async (query: ScryfallCardQueryParameters): Promise<ScryfallCardView[]> => {
-  const queryString = scryfallMapper.toQueryString(query);
+    console.log(JSON.stringify(cardResult));
 
-  const cardResults = await requestClient.get(`${SCRYFALL_BASE_URL}/cards/search?${queryString}`);
+    return this.mapper.toCardView(cardResult as any);
+  }
 
-  console.log(JSON.stringify(cardResults));
+  async getCards(query: ScryfallCardQueryParameters): Promise<ScryfallCardView[]> {
+    const queryString = this.mapper.toQueryString(query);
 
-  return (cardResults as any).map(scryfallMapper.toCardView);
-};
+    const cardResults = await this.client.get(`${this.baseUrl}/cards/search?${queryString}`);
 
-export const getRandomCard = async (
-  query: ScryfallCardQueryParameters
-): Promise<ScryfallCardView> => {
-  const queryString = scryfallMapper.toQueryString(query);
+    console.log(JSON.stringify(cardResults));
 
-  const url = `${SCRYFALL_BASE_URL}/cards/random?${queryString}`;
+    return (cardResults as any).map(this.mapper.toCardView);
+  }
 
-  const cardResult = await requestClient.get(url);
+  async getRandomCard(query: ScryfallCardQueryParameters): Promise<ScryfallCardView> {
+    const queryString = this.mapper.toQueryString(query);
 
-  console.log(JSON.stringify(cardResult));
+    const url = `${this.baseUrl}/cards/random?${queryString}`;
 
-  return scryfallMapper.toCardView(cardResult as any);
-};
+    const cardResult = await this.client.get(url);
 
-export const getSet = async (setCode: string): Promise<ScryfallSetView> => {
-  const setResult = await requestClient.get(`${SCRYFALL_BASE_URL}/sets/${setCode}`);
+    console.log(JSON.stringify(cardResult));
 
-  return scryfallMapper.toSetView(setResult as any);
-};
+    return this.mapper.toCardView(cardResult as any);
+  }
+
+  async getSet(setCode: string): Promise<ScryfallSetView> {
+    const setResult = await this.client.get(`${this.baseUrl}/sets/${setCode}`);
+
+    return this.mapper.toSetView(setResult as any);
+  }
+}

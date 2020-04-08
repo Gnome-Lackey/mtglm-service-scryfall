@@ -21,11 +21,11 @@ models:
     contentType: "application/json"
     schema: ${file(models/responses/success.json)}
 resources:
-  - path: Get Card
+  - path: GetCard
     description: "Retrieve card by uid."
-  - path: Get Random Card
+  - path: GetRandomCard
     description: "Retrieve random card."
-  - path: Get Cards
+  - path: GetCards
     description: "Retrieve all cards."
-  - path: Get Set
+  - path: GetSet
     description: "Retrieve set by gatherer code."

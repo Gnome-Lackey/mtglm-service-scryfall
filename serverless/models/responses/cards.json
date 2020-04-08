@@ -1,65 +1,67 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "array",
-  "title": "SeasonsResponseSchema",
+  "title": "ScryfallCardsResponseSchema",
   "items": {
     "type": "object",
-    "title": "Season",
+    "title": "ScryfallCard",
     "properties": {
       "id": {
-        "type": "string",
-        "title": "SeasonId"
+        "type": "string"
       },
-      "players": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "title": "SeasonPlayerIds"
+      "name": {
+        "type": "string"
+      },
+      "language": {
+        "type": "string"
+      },
+      "releasedOn": {
+        "type": "string"
+      },
+      "image": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "rarity": {
+        "type": "string"
+      },
+      "subtype": {
+        "type": "string"
+      },
+      "costs": {
+        "type": "object",
+        "properties": {
+          "mana": {
+            "type": "string"
+          },
+          "converted": {
+            "type": "integer"
+          }
         }
       },
       "set": {
         "type": "object",
-        "title": "SeasonSet",
         "properties": {
-          "id": {
-            "type": "string",
-            "title": "SeasonSetId"
+          "name": {
+            "type": "string"
           },
           "code": {
-            "type": "string",
-            "title": "SeasonSetCode"
-          },
-          "name": {
-            "type": "string",
-            "title": "SeasonSetName"
-          },
-          "releasedOn": {
-            "type": "string",
-            "title": "SeasonSetReleasedOn"
-          },
-          "cardCount": {
-            "type": "string",
-            "title": "SeasonSetCardCount"
+            "type": "string"
           }
         }
       },
-      "isActive": {
-        "type": "boolean",
-        "title": "SeasonIsActive"
-      },
-      "startedOn": {
-        "type": "string",
-        "title": "SeasonDateStarted"
-      },
-      "endedOOn": {
-        "type": "string",
-        "title": "SeasonDateEnded"
-      },
-      "top": {
+      "colors": {
         "type": "array",
         "items": {
-          "type": "string",
-          "title": "SeasonTopPlayerIds"
+          "type": "string"
+        }
+      },
+      "identity": {
+        "type": "array",
+        "items": {
+          "type": "string"
         }
       }
     }

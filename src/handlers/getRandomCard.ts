@@ -3,7 +3,9 @@ import requestMiddleware from "mtglm-service-sdk/build/middleware/requestResourc
 import { LambdaResponse } from "mtglm-service-sdk/build/models/Lambda";
 import { ScryfallCardQueryParameters } from "mtglm-service-sdk/build/models/QueryParameters";
 
-import * as controller from "../controllers";
+import ScryfallController from "../controllers";
+
+const controller = new ScryfallController();
 
 module.exports.handler = requestMiddleware(
   async (path: object, data: object, query: ScryfallCardQueryParameters): Promise<LambdaResponse> => {

@@ -12,15 +12,15 @@ export default class ScryfallService {
 
   private client = new RequestClient();
 
-  async getCard(cardId: string): Promise<ScryfallCardView> {
+  getCard = async (cardId: string): Promise<ScryfallCardView> => {
     const cardResult = await this.client.get(`${this.baseUrl}/cards/${cardId}`);
 
     console.log(JSON.stringify(cardResult));
 
     return this.mapper.toCardView(cardResult as any);
-  }
+  };
 
-  async getCards(query: ScryfallCardQueryParameters): Promise<ScryfallCardView[]> {
+  getCards = async (query: ScryfallCardQueryParameters): Promise<ScryfallCardView[]> => {
     const queryString = this.mapper.toQueryString(query);
 
     const cardResults = await this.client.get(`${this.baseUrl}/cards/search?${queryString}`);
@@ -28,9 +28,9 @@ export default class ScryfallService {
     console.log(JSON.stringify(cardResults));
 
     return (cardResults as any).map(this.mapper.toCardView);
-  }
+  };
 
-  async getRandomCard(query: ScryfallCardQueryParameters): Promise<ScryfallCardView> {
+  getRandomCard = async (query: ScryfallCardQueryParameters): Promise<ScryfallCardView> => {
     const queryString = this.mapper.toQueryString(query);
 
     const url = `${this.baseUrl}/cards/random?${queryString}`;
@@ -40,11 +40,11 @@ export default class ScryfallService {
     console.log(JSON.stringify(cardResult));
 
     return this.mapper.toCardView(cardResult as any);
-  }
+  };
 
-  async getSet(setCode: string): Promise<ScryfallSetView> {
+  getSet = async (setCode: string): Promise<ScryfallSetView> => {
     const setResult = await this.client.get(`${this.baseUrl}/sets/${setCode}`);
 
     return this.mapper.toSetView(setResult as any);
-  }
+  };
 }

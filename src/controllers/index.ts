@@ -1,5 +1,5 @@
-import { logFailure, logSuccess } from "mtglm-service-sdk/build/utils/logger";
-import { handleError, handleSuccess } from "mtglm-service-sdk/build/utils/response";
+import MTGLMLogger from "mtglm-service-sdk/build/utils/logger";
+import ResponseHandler from "mtglm-service-sdk/build/utils/response";
 
 import { LambdaResponse } from "mtglm-service-sdk/build/models/Lambda";
 import { ScryfallCardQueryParameters } from "mtglm-service-sdk/build/models/QueryParameters";
@@ -9,17 +9,20 @@ import ScryfallService from "../services";
 export default class ScryfallController {
   private service = new ScryfallService();
 
+  private logger = new MTGLMLogger();
+  private responseHandler = new ResponseHandler();
+
   getCard = async (cardId: string): Promise<LambdaResponse> => {
     try {
       const result = await this.service.getCard(cardId);
 
-      logSuccess("DYNAMO", "GET card from Scryfall", result);
+      this.logger.success("DYNAMO", "GET card from Scryfall", result);
 
-      return handleSuccess(result);
+      return this.responseHandler.success(result);
     } catch (error) {
-      logFailure("DYNAMO", "GET card from Scryfall", error);
+      this.logger.failure("DYNAMO", "GET card from Scryfall", error);
 
-      return handleError(error);
+      return this.responseHandler.error(error);
     }
   };
 
@@ -27,13 +30,13 @@ export default class ScryfallController {
     try {
       const results = await this.service.getCards(query);
 
-      logSuccess("DYNAMO", "GET cards from Scryfall", results);
+      this.logger.success("DYNAMO", "GET cards from Scryfall", results);
 
-      return handleSuccess(results);
+      return this.responseHandler.success(results);
     } catch (error) {
-      logFailure("DYNAMO", "GET cards from Scryfall", error);
+      this.logger.failure("DYNAMO", "GET cards from Scryfall", error);
 
-      return handleError(error);
+      return this.responseHandler.error(error);
     }
   };
 
@@ -41,13 +44,13 @@ export default class ScryfallController {
     try {
       const results = await this.service.getRandomCard(query);
 
-      logSuccess("DYNAMO", "GET random card from Scryfall", results);
+      this.logger.success("DYNAMO", "GET random card from Scryfall", results);
 
-      return handleSuccess(results);
+      return this.responseHandler.success(results);
     } catch (error) {
-      logFailure("DYNAMO", "GET random card from Scryfall", error);
+      this.logger.failure("DYNAMO", "GET random card from Scryfall", error);
 
-      return handleError(error);
+      return this.responseHandler.error(error);
     }
   };
 
@@ -55,13 +58,13 @@ export default class ScryfallController {
     try {
       const result = await this.service.getSet(setCode);
 
-      logSuccess("DYNAMO", "GET set from Scryfall", result);
+      this.logger.success("DYNAMO", "GET set from Scryfall", result);
 
-      return handleSuccess(result);
+      return this.responseHandler.success(result);
     } catch (error) {
-      logFailure("DYNAMO", "GET set from Scryfall", error);
+      this.logger.failure("DYNAMO", "GET set from Scryfall", error);
 
-      return handleError(error);
+      return this.responseHandler.error(error);
     }
   };
 }
